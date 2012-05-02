@@ -2,6 +2,7 @@ package com.followher.pojo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,24 +27,23 @@ public class User implements Serializable{
 	
 	private Profile profile;
 	
+	private List<Post> posts;
+	
+	private List<Post> faves;
+
+	private List<Post> likes;
+   
+	private List<User> following;  // 关注
 //	@Transient
-//	private ArrayList<Post> posts;
-//	@Transient
-//	private ArrayList<Comment> comments;
-//	@Transient
-//	private ArrayList<Fave> faves;
-//	@Transient
-//	private ArrayList<Like> likes;
-//	@Transient
-//	private ArrayList<User> following;  // 关注
-//	@Transient
-//	private ArrayList<User> followers;  //粉丝
+	private List<User> followers;  //粉丝
 //	
 	
 	public User(){
 		
 		
 	}
+
+	
 
 	public User( String name, String sex, Avatar avatar,
 			Profile profile) {
@@ -54,6 +54,7 @@ public class User implements Serializable{
 		this.profile = profile;
 	}
 
+	
 	
 	@Id
 	@Column(name="id")
@@ -93,8 +94,8 @@ public class User implements Serializable{
 		this.sex = sex;
 	}
 	
-	@JoinColumn(name="avatar")
 	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="avatar")
 	public Avatar getAvatar(){
 		return avatar;
 		
@@ -104,8 +105,8 @@ public class User implements Serializable{
 		this.avatar=avatar;
 	}
 	
-	@JoinColumn(name="profile")
 	@OneToOne(cascade= CascadeType.ALL)
+	@JoinColumn(name="profile")
 	public Profile getProfile(){
 		return profile;
 		
@@ -114,5 +115,67 @@ public class User implements Serializable{
 	public void setProfile(Profile profile){
 		this.profile=profile;
 	}
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="subscribe", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "followid") })
+	public List<User> getFollowing(){
+		return this.following;
+	}
+	
+	public void setFollowing(List<User> following){
+		this.following=following;
+	}
+	
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="subscribe", joinColumns = { @JoinColumn(name = "followid") }, inverseJoinColumns = { @JoinColumn(name = "userid") })
+	public List<User> getFollowers() {
+		return followers;
+	}
 
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
+	}
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "post", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "id") })
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="fave", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "postid") })    
+	public List<Post> getFaves() {
+		return faves;
+	}
+
+
+
+	public void setFaves(List<Post> faves) {
+		this.faves = faves;
+	}
+
+
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="like", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "postid") })    
+	public List<Post> getLikes() {
+		return likes;
+	}
+
+
+
+	public void setLikes(List<Post> likes) {
+		this.likes = likes;
+	}
+
+	
+	
 }

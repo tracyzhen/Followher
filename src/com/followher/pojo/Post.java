@@ -1,46 +1,95 @@
 package com.followher.pojo;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Post")
+@Entity
+@Table(name="post")
 public class Post {
 
-	private String id;
-	private String userId;
+	private long id;
 	private String content;
 	private Date createTime;
-	private String[] imgs;
-	public String getId() {
-		return id;
+	private List<PostImg> imgs;
+	private List<Comment> comments;
+	
+	public Post(){
+		
 	}
-	public void setId(String id) {
+	
+	public Post(String content, Date createTime, List<PostImg> imgs){
+		this.content=content;
+		this.createTime=createTime;
+		this.imgs=imgs;
+	}
+	
+	
+	@Id
+	@Column(name="id")
+	@TableGenerator(
+         name="tab-store-post",
+         table="GENERATOR_TABLE",
+         pkColumnName = "G_KEY",
+         pkColumnValue="POST_PK",
+         valueColumnName = "G_VALUE",
+         allocationSize=1
+    )
+    @GeneratedValue(strategy=GenerationType.TABLE,generator="tab-store-post")
+	public long getId() {
+		return this.id;
+	}
+	public void setId(long id) {
 		this.id = id;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	
+	
+	@Column(name="content")
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	@Column(name="createtime")
 	public Date getCreateTime() {
-		return createTime;
+		return this.createTime;
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public String[] getImgs() {
-		return imgs;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "postimg", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id") })
+	public List<PostImg> getImgs() {
+		return this.imgs;
 	}
-	public void setImgs(String[] imgs) {
+	public void setImgs(List<PostImg> imgs) {
 		this.imgs = imgs;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "comment", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id") })
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 	
 	
