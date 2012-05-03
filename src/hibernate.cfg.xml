@@ -35,5 +35,11 @@
 	 <mapping class="com.followher.pojo.Avatar" />
      <mapping class="com.followher.pojo.Profile" />
      <mapping class="com.followher.pojo.User" />
+     <mapping class="com.followher.pojo.Post" />
+     <mapping class="com.followher.pojo.PostImg" />
+     <mapping class="com.followher.pojo.Comment" />
+     <mapping class="com.followher.pojo.Type" />
+     <mapping class="com.followher.pojo.Item" />
+     
 </session-factory>
 </hibernate-configuration>

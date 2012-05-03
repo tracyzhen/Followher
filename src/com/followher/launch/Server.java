@@ -3,6 +3,7 @@ package com.followher.launch;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
 
+import com.followher.hibernateTest.InsertData;
 import com.followher.hibernateTest.Test;
 import com.followher.pojo.Avatar;
 import com.followher.pojo.Profile;
@@ -14,9 +15,9 @@ public class Server {
 	public static void main(String[] args){
 		
 		 
-		Test.test();
+		//Test.test();
 		  // startServer();
-		
+        InsertData.insertItems(); 		
 	}
 	
 	public static void startServer(){

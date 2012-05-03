@@ -31,6 +31,9 @@ public class Post {
 		
 	}
 	
+	public Post(String content, Date createTime){
+		this(content,createTime,null);
+	}
 	public Post(String content, Date createTime, List<PostImg> imgs){
 		this.content=content;
 		this.createTime=createTime;

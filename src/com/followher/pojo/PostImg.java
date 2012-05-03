@@ -11,6 +11,7 @@ public class PostImg {
 	private long id;
 	private String url;
 	private String ebaylink;
+	private String css;
 
 	
 	public PostImg(){
@@ -18,9 +19,10 @@ public class PostImg {
 		
 	}
 	
-	public PostImg(String url, String ebaylink){
+	public PostImg(String url, String ebaylink, String css){
 		this.url=url;
 		this.ebaylink=ebaylink;
+		this.css=css;
 	}
 	
 	@Id
@@ -59,5 +61,16 @@ public class PostImg {
 	public void setEbaylink(String ebaylink) {
 		this.ebaylink = ebaylink;
 	}
+
+	@Column(name="css")
+	public String getCss() {
+		return css;
+	}
+
+	public void setCss(String css) {
+		this.css = css;
+	}
+	
+	
 
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 04 月 28 日 06:01
+-- 生成日期: 2012 年 05 月 03 日 13:16
 -- 服务器版本: 5.2.3
 -- PHP 版本: 5.3.6
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filelocation` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -75,14 +75,68 @@ CREATE TABLE IF NOT EXISTS `generator_table` (
   `G_KEY` varchar(50) DEFAULT NULL,
   `G_VALUE` int(20) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `generator_table`
 --
 
 INSERT INTO `generator_table` (`ID`, `G_KEY`, `G_VALUE`) VALUES
-(1, 'AVATAR_PK', 2);
+(1, 'AVATAR_PK', 1),
+(2, 'USER_PK', 1),
+(3, 'PROFILE_PK', 1),
+(4, 'POST_PK', 1),
+(5, 'COMMENT_PK', 1),
+(6, 'POSTIMG_PK', 1),
+(11, 'TYPE_PK', 8),
+(12, 'ITEM_PK', 27);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `items`
+--
+
+CREATE TABLE IF NOT EXISTS `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL,
+  `filelocation` varchar(100) DEFAULT NULL,
+  `ebaylink` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+
+--
+-- 转存表中的数据 `items`
+--
+
+INSERT INTO `items` (`id`, `type`, `filelocation`, `ebaylink`) VALUES
+(1, 1, 'CSA/Coats_Jackets/Coats_Jackets1.jpg', 'http://www.ebay.com/itm/New-Michael-Kors-Double-Breasted-Pea-Coat-Winter-Wool-Jacket-For-Women-in-Black-/200723582912#ht_1487wt_1064'),
+(2, 1, 'CSA/Coats_Jackets/Coats_Jackets2.jpg', 'http://www.ebay.com/itm/NWT-WOMEN-SZ-XS-1-2-OLD-NAVY-BLUE-CROPPED-TRENCH-PEA-COAT-SPRING-FALL-JACKET-NEW-/300701986809#ht_1462wt_1051'),
+(3, 1, 'CSA/Coats_Jackets/Coats_Jackets3.jpg', 'http://www.ebay.com/itm/Old-Navy-faux-shearling-motorcycle-bomber-jacket-med-/200750798508#ht_500wt_1068'),
+(4, 2, 'CSA/Dresses/Dresses1.jpg', 'http://www.ebay.com/itm/Berry-Twist-Front-Layered-Dress-Jasmine-Size-8-New-/320896395742#ht_897wt_1139'),
+(5, 2, 'CSA/Dresses/Dresses2.jpg', 'http://www.ebay.com/itm/Beige-Short-Sleeve-Career-Pencil-Dress-Belt-Size-12-New-/330724258801#ht_996wt_1139'),
+(6, 2, 'CSA/Dresses/Dresses3.jpg', 'http://www.ebay.com/itm/Mocha-Black-Graphic-Art-Print-Tunic-Dress-Size-10-New-/320896393233#ht_1728wt_1139'),
+(7, 2, 'CSA/Dresses/Dresses4.jpg', 'http://www.ebay.com/itm/Leopard-print-long-cotton-chiffon-dress-/120902793017#ht_1347wt_952'),
+(8, 3, 'CSA/Jeans/Jeans1.jpg', 'http://www.ebay.com/itm/Label-Lab-Skinny-Biker-Jeans-In-Nearly-Black-/120906570794'),
+(9, 3, 'CSA/Jeans/Jeans2.jpg', 'http://www.ebay.com/itm/NEW-LADIES-WOMENS-SKINNY-SLIM-FIT-STITCH-DETAIL-DENIM-BLUE-JEANS-6-8-10-12-14-/230785077068'),
+(10, 3, 'CSA/Jeans/Jeans3.jpg', 'http://www.ebay.com/itm/PILCRO-BY-ANTHROPOLOGIE-Grey-Mid-Rise-Bootcut-Jeans-Sz-Tag-Missing-/261015773327#ht_1092wt_1185'),
+(11, 3, 'CSA/Jeans/Jeans4.jpg', 'http://www.ebay.com/itm/ROXY-Dark-Blue-Low-Rise-Bootcut-Jeans-Sz-1-/261015774077#ht_1092wt_1185'),
+(12, 4, 'CSA/pants/pants1.jpg', 'http://www.ebay.com/itm/NWT-LARGE-NIKE-Womens-Dri-Fit-Lowrise-WorkOut-Pants-SHORT-LENGTH-petite-/200750638635#ht_1236wt_308'),
+(13, 4, 'CSA/pants/pants2.jpg', 'http://www.ebay.com/itm/New-Girl-Dickies-Black-Two-Back-Welt-Pocket-Pant-N882-The-Worker-NWT-With-Tags-/190664106433#ht_1689wt_952'),
+(14, 4, 'CSA/pants/pants3.jpg', 'http://www.ebay.com/itm/Pied-a-Terre-Paperbag-Trousers-In-Black-/140746868932#ht_1099wt_1139'),
+(15, 5, 'CSA/shoes/shoes1.jpg', 'http://www.ebay.com/itm/2012-Hot-Sexy-Womens-High-Heel-Shoes-Pump-Platform-Four-Sizes-US5-US8-35-39-/270967849039#ht_8698wt_1139'),
+(16, 5, 'CSA/shoes/shoes2.jpg', 'http://www.ebay.com/itm/Privo-Womens-Polar-Lake-Slip-On-Sz-10N-/170835354968#ht_2162wt_1139'),
+(17, 5, 'CSA/shoes/shoes3.jpg', 'http://www.ebay.com/itm/Nine-West-Womens-Captivate-Sandals-/180869734952#ht_500wt_1202'),
+(18, 5, 'CSA/shoes/shoes4.jpg', 'http://www.ebay.com/itm/Nike-Womens-NIKE-AIR-KARST-Z-WOMENS-BOOTS-red-/190671220609#ht_500wt_1202'),
+(19, 5, 'CSA/shoes/shoes5.jpg', 'http://www.ebay.com/itm/Dereon-Sasho-Womens-SZ-7-Black-Shoes-/140747396642#ht_2435wt_1185'),
+(20, 6, 'CSA/Skirts/Skirts1.jpg', 'http://www.ebay.com/itm/Linea-Lace-Skirt-In-Off-White-/110872805345'),
+(21, 6, 'CSA/Skirts/Skirts2.jpg', 'http://www.ebay.com/itm/Yumi-Floral-Maxi-Skirt-In-Black-/120906628406'),
+(22, 6, 'CSA/Skirts/Skirts3.jpg', 'http://www.ebay.com/itm/Retro-Lace-Skirt-Crochet-bottoming-Skirt-Bouffant-Puffy-Dress-6-Colors-S074-/180869835540#ht_7548wt_1110'),
+(23, 6, 'CSA/Skirts/Skirts4.jpg', 'http://www.ebay.com/itm/aeropostale-aero-87-script-graphic-t-/110873340270'),
+(24, 7, 'CSA/Tops/Tops1.jpg', 'http://www.ebay.com/itm/Free-Ship-Women-Cotton-Miss-Vest-Mini-Dress-T-shirt-Sleeveless-Tops-434-Size-S-/230781672781#ht_7300wt_1090'),
+(25, 7, 'CSA/Tops/Tops2.jpg', 'http://www.ebay.com/itm/Free-Ship-Women-Cotton-Miss-Vest-Mini-Dress-T-shirt-Sleeveless-Tops-434-Size-S-/230781672781#ht_7300wt_1090'),
+(26, 7, 'CSA/Tops/Tops3.jpg', 'http://www.ebay.com/itm/September-11th-Firefighters-Emblem-10-Years-Never-Forget-Junior-Girls-T-shirt-/320761513933');
 
 -- --------------------------------------------------------
 
@@ -125,6 +179,7 @@ CREATE TABLE IF NOT EXISTS `postimg` (
   `postid` int(11) NOT NULL,
   `url` varchar(1000) DEFAULT NULL,
   `ebaylink` varchar(1000) DEFAULT NULL,
+  `css` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`,`postid`),
   KEY `postid` (`postid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -139,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -159,6 +214,31 @@ CREATE TABLE IF NOT EXISTS `subscribe` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `type`
+--
+
+CREATE TABLE IF NOT EXISTS `type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `type`
+--
+
+INSERT INTO `type` (`id`, `type`) VALUES
+(1, 'coats_jacketS'),
+(2, 'dresses'),
+(3, 'jeans'),
+(4, 'pants'),
+(5, 'shoes'),
+(6, 'skirts'),
+(7, 'tops');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `user`
 --
 
@@ -171,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `avatar` (`avatar`),
   KEY `profile` (`profile`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- 限制导出的表
@@ -181,48 +261,54 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- 限制表 `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `fave`
 --
 ALTER TABLE `fave`
-  ADD CONSTRAINT `fave_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fave_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fave_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
+  ADD CONSTRAINT `fave_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
+
+--
+-- 限制表 `items`
+--
+ALTER TABLE `items`
+  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`type`) REFERENCES `type` (`id`);
 
 --
 -- 限制表 `like`
 --
 ALTER TABLE `like`
-  ADD CONSTRAINT `like_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `like_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
+  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `postimg`
 --
 ALTER TABLE `postimg`
-  ADD CONSTRAINT `fk_postid` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_postid` FOREIGN KEY (`postid`) REFERENCES `post` (`id`);
 
 --
 -- 限制表 `subscribe`
 --
 ALTER TABLE `subscribe`
-  ADD CONSTRAINT `subscribe_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `subscribe_ibfk_2` FOREIGN KEY (`followid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `subscribe_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `subscribe_ibfk_2` FOREIGN KEY (`followid`) REFERENCES `user` (`id`);
 
 --
 -- 限制表 `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
