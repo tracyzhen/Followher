@@ -8,6 +8,7 @@ import com.followher.hibernateTest.Test;
 import com.followher.pojo.Avatar;
 import com.followher.pojo.Profile;
 import com.followher.pojo.User;
+import com.followher.service.ItemService;
 import com.followher.service.UserService;
 
 public class Server {
@@ -16,17 +17,18 @@ public class Server {
 		
 		 
 		//Test.test();
-		  // startServer();
-        InsertData.insertItems(); 		
+		   startServer();
+        //InsertData.insertItems(); 		
 	}
 	
 	public static void startServer(){
 		  UserService userService =new UserService();
-		   
+		  ItemService itemService=new ItemService();
+		  
 		  JAXRSServerFactoryBean restServer =new JAXRSServerFactoryBean();
 		  restServer.setResourceClasses(User.class, Avatar.class,Profile.class );
-		  restServer.setServiceBean(userService);
-		  restServer.setAddress("http://10.249.72.72:9999/");
+		  restServer.setServiceBeanObjects(userService,itemService);
+		  restServer.setAddress("http://127.0.0.1:9999/");
 		  restServer.create();
 		  
 		   

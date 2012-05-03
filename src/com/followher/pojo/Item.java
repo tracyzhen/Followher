@@ -1,9 +1,13 @@
 package com.followher.pojo;
-import javax.persistence.*;
+import java.io.Serializable;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="Item")
 @Entity
 @Table(name="items")
-public class Item {
+public class Item  implements Serializable{
 
 	
 	private long id;

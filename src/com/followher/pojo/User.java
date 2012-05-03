@@ -150,6 +150,10 @@ public class User implements Serializable{
 	}
 
 
+	public void addPost(Post post){
+		this.posts.add(post);
+	}
+	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="fave", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "postid") })    
 	public List<Post> getFaves() {

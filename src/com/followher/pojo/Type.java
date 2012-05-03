@@ -1,10 +1,12 @@
 package com.followher.pojo;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="type")
-public class Type {
+public class Type implements Serializable {
     
 	public static String COATS_JACKETS="coats_jacketS";
 	public static String DRESSES="dresses";
