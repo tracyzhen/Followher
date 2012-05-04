@@ -17,7 +17,7 @@ public class ItemService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public  Response getItemsByType(@PathParam("type")String type){
 		System.out.println("get item by type = "+ type);
-		List<Item> items=ItemDao.getItems(type);
+		List<Item> items=ItemDao.getItemsByType(type);
 		final GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(items) { };
 		return Response.ok().entity(entity).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();
 	}
@@ -26,6 +26,9 @@ public class ItemService {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getItems(){
-		return null;
+		System.out.println("get all items ");
+		List<Item> items=ItemDao.getItems();
+		final GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(items) { };
+		return Response.ok().entity(entity).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();
 	}
 }

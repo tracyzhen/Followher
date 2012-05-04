@@ -1,12 +1,21 @@
 package com.followher.hibernateTest;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.followher.launch.HibernateUtil;
+import com.followher.pojo.Avatar;
 import com.followher.pojo.Item;
+import com.followher.pojo.Post;
+import com.followher.pojo.Img;
+import com.followher.pojo.Profile;
 import com.followher.pojo.Type;
+import com.followher.pojo.User;
 
 public class InsertData {
  
@@ -15,7 +24,126 @@ public class InsertData {
 	 */
 	
 
+	public static void insertUsers(){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			Avatar avatar1 = new Avatar("Avatar/admin.jpeg");
+			Avatar avatar2 = new Avatar("Avatar/emma.png");
+			Avatar avatar3 = new Avatar("Avatar/banner.jpeg");
+			Profile profile1 = new Profile("123456");
+			Profile profile2 = new Profile("123456");
+			Profile profile3 = new Profile("123456");
+			User user1 = new User("admin", "female", avatar1, profile1);
+			User user2 = new User("Emma", "female", avatar2, profile2);
+			User user3 = new User("Banner", "male", avatar3, profile3);
+			
+			session.save(user1);
+			session.save(user2);
+			session.save(user3);
+			
+			tx.commit();
+			System.out.println("Success!!");
+		} catch (HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
 	
+	public static void insertPosts(){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Img img1=new Img("poster/poster1.jpg","http://www.ebay.com","");
+			Img img2=new Img("poster/poster2.jpg","http://www.ebay.com","");
+			Img img3=new Img("poster/poster3.jpg","http://www.ebay.com","");
+			Img img4=new Img("poster/poster4.jpg","http://www.ebay.com","");
+			Img img5=new Img("poster/poster5.jpg","http://www.ebay.com","");
+			Img img6=new Img("poster/poster6.jpg","http://www.ebay.com","");
+			Img img7=new Img("poster/poster7.jpg","http://www.ebay.com","");
+			
+			
+			Post post1=new Post("Good,Cool", new Date(112,5,4,16,40,0));
+			post1.setImgs(new ArrayList<Img>());
+			post1.addImg(img1);
+			
+			Post post2=new Post("Cool,beautiful, fancy !", new Date(112,5,3,16,40,0));
+			post2.setImgs(new ArrayList<Img>());
+			post2.addImg(img2);
+			
+			
+			Post post3=new Post("U deserve it!", new Date(112,5,3,15,40,0));
+			post3.setImgs(new ArrayList<Img>());
+			post3.addImg(img3);
+			
+			
+			Post post4=new Post("Good,Cool!", new Date(112,5,10,16,40,0));
+			post4.setImgs(new ArrayList<Img>());
+			post4.addImg(img4);
+			
+			
+			Post post5=new Post("Good,Cool!!!!", new Date(112,4,4,16,40,0));
+			post5.setImgs(new ArrayList<Img>());
+			post5.addImg(img5);
+			
+			
+			Post post6=new Post("Fancy,Cool", new Date(112,6,4,16,40,0));
+			post6.setImgs(new ArrayList<Img>());
+			post6.addImg(img6);
+			
+			Post post7=new Post("Good,Cool!!!", new Date(112,5,1,16,40,0));
+			post7.setImgs(new ArrayList<Img>());
+			post7.addImg(img7);
+			
+			
+			User user1=(User) session.get(User.class, new Long(1));
+			if(user1!=null){
+				
+				
+				user1.setPosts(new ArrayList<Post>());
+				user1.addPost(post1);
+				user1.addPost(post3);
+				user1.addPost(post4);
+			}
+			
+			
+			User user2=(User) session.get(User.class, new Long(2));
+			if(user2!=null){
+				
+				
+				user2.setPosts(new ArrayList<Post>());
+				user2.addPost(post2);
+				user2.addPost(post6);
+				
+			}
+			
+			User user3=(User) session.get(User.class, new Long(3));
+			if(user3!=null){
+				
+				
+				user3.setPosts(new ArrayList<Post>());
+				user3.addPost(post5);
+				user3.addPost(post7);
+				
+			}
+			
+			session.saveOrUpdate(user1);
+			session.saveOrUpdate(user2);
+			session.saveOrUpdate(user3);
+			tx.commit();
+			System.out.println("Success!!");
+		} catch (HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
 	
 	public static void insertItems(){
 		Type type1=new Type(Type.COATS_JACKETS);

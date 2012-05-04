@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 05 月 03 日 13:16
+-- 生成日期: 2012 年 05 月 04 日 13:57
 -- 服务器版本: 5.2.3
 -- PHP 版本: 5.3.6
 
@@ -31,6 +31,15 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   `filelocation` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- 转存表中的数据 `avatar`
+--
+
+INSERT INTO `avatar` (`id`, `filelocation`) VALUES
+(1, 'Avatar/admin.jpeg'),
+(2, 'Avatar/emma.png'),
+(3, 'Avatar/banner.jpeg');
 
 -- --------------------------------------------------------
 
@@ -82,14 +91,69 @@ CREATE TABLE IF NOT EXISTS `generator_table` (
 --
 
 INSERT INTO `generator_table` (`ID`, `G_KEY`, `G_VALUE`) VALUES
-(1, 'AVATAR_PK', 1),
-(2, 'USER_PK', 1),
-(3, 'PROFILE_PK', 1),
-(4, 'POST_PK', 1),
+(1, 'AVATAR_PK', 4),
+(2, 'USER_PK', 4),
+(3, 'PROFILE_PK', 4),
+(4, 'POST_PK', 8),
 (5, 'COMMENT_PK', 1),
-(6, 'POSTIMG_PK', 1),
+(6, 'IMG_PK', 8),
 (11, 'TYPE_PK', 8),
 (12, 'ITEM_PK', 27);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `img`
+--
+
+CREATE TABLE IF NOT EXISTS `img` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(1000) DEFAULT NULL,
+  `ebaylink` varchar(1000) DEFAULT NULL,
+  `css` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `img`
+--
+
+INSERT INTO `img` (`id`, `url`, `ebaylink`, `css`) VALUES
+(1, 'poster/poster1.jpg', 'http://www.ebay.com', ''),
+(2, 'poster/poster3.jpg', 'http://www.ebay.com', ''),
+(3, 'poster/poster4.jpg', 'http://www.ebay.com', ''),
+(4, 'poster/poster2.jpg', 'http://www.ebay.com', ''),
+(5, 'poster/poster6.jpg', 'http://www.ebay.com', ''),
+(6, 'poster/poster5.jpg', 'http://www.ebay.com', ''),
+(7, 'poster/poster7.jpg', 'http://www.ebay.com', '');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `imgpost`
+--
+
+CREATE TABLE IF NOT EXISTS `imgpost` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `postid` int(11) NOT NULL,
+  `imgid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `postid` (`postid`),
+  KEY `imgid` (`imgid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `imgpost`
+--
+
+INSERT INTO `imgpost` (`id`, `postid`, `imgid`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5),
+(6, 6, 6),
+(7, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -161,28 +225,23 @@ CREATE TABLE IF NOT EXISTS `like` (
 
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
   `content` varchar(2000) DEFAULT NULL,
   `createtime` date DEFAULT NULL,
-  PRIMARY KEY (`id`,`userid`),
-  KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- 表的结构 `postimg`
+-- 转存表中的数据 `post`
 --
 
-CREATE TABLE IF NOT EXISTS `postimg` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `postid` int(11) NOT NULL,
-  `url` varchar(1000) DEFAULT NULL,
-  `ebaylink` varchar(1000) DEFAULT NULL,
-  `css` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`,`postid`),
-  KEY `postid` (`postid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `post` (`id`, `content`, `createtime`) VALUES
+(1, 'Good,Cool', '2012-06-04'),
+(2, 'U deserve it!', '2012-06-03'),
+(3, 'Good,Cool!', '2012-06-10'),
+(4, 'Cool,beautiful, fancy !', '2012-06-03'),
+(5, 'Fancy,Cool', '2012-07-04'),
+(6, 'Good,Cool!!!!', '2012-05-04'),
+(7, 'Good,Cool!!!', '2012-06-01');
 
 -- --------------------------------------------------------
 
@@ -195,6 +254,15 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- 转存表中的数据 `profile`
+--
+
+INSERT INTO `profile` (`id`, `password`) VALUES
+(1, '123456'),
+(2, '123456'),
+(3, '123456');
 
 -- --------------------------------------------------------
 
@@ -251,7 +319,44 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `avatar` (`avatar`),
   KEY `profile` (`profile`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`id`, `avatar`, `profile`, `name`, `sex`) VALUES
+(1, 1, 1, 'admin', 'female'),
+(2, 2, 2, 'Emma', 'female'),
+(3, 3, 3, 'Banner', 'male');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `userpost`
+--
+
+CREATE TABLE IF NOT EXISTS `userpost` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `postid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userid` (`userid`),
+  KEY `postid` (`postid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- 转存表中的数据 `userpost`
+--
+
+INSERT INTO `userpost` (`id`, `userid`, `postid`) VALUES
+(2, 1, 1),
+(3, 1, 2),
+(4, 1, 3),
+(5, 2, 4),
+(6, 2, 5),
+(7, 3, 6),
+(8, 3, 7);
 
 --
 -- 限制导出的表
@@ -261,54 +366,56 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- 限制表 `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `fave`
 --
 ALTER TABLE `fave`
-  ADD CONSTRAINT `fave_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `fave_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `fave_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fave_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `imgpost`
+--
+ALTER TABLE `imgpost`
+  ADD CONSTRAINT `imgpost_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `imgpost_ibfk_2` FOREIGN KEY (`imgid`) REFERENCES `img` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `items`
 --
 ALTER TABLE `items`
-  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`type`) REFERENCES `type` (`id`);
+  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`type`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `like`
 --
 ALTER TABLE `like`
-  ADD CONSTRAINT `like_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
-
---
--- 限制表 `post`
---
-ALTER TABLE `post`
-  ADD CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
-
---
--- 限制表 `postimg`
---
-ALTER TABLE `postimg`
-  ADD CONSTRAINT `fk_postid` FOREIGN KEY (`postid`) REFERENCES `post` (`id`);
+  ADD CONSTRAINT `like_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `subscribe`
 --
 ALTER TABLE `subscribe`
-  ADD CONSTRAINT `subscribe_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `subscribe_ibfk_2` FOREIGN KEY (`followid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `subscribe_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `subscribe_ibfk_2` FOREIGN KEY (`followid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+--
+-- 限制表 `userpost`
+--
+ALTER TABLE `userpost`
+  ADD CONSTRAINT `userpost_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userpost_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -137,8 +137,8 @@ public class User implements Serializable{
 	}
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "post", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "id") })
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="userpost", joinColumns = { @JoinColumn(name = "userid") }, inverseJoinColumns = { @JoinColumn(name = "postid") })    
 	public List<Post> getPosts() {
 		return posts;
 	}
