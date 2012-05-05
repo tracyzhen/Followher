@@ -91,32 +91,36 @@ public class InsertData {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-//			User user1=(User) session.get(User.class, new Long(1));
-//			User user2=(User) session.get(User.class, new Long(2));
-//			User user3=(User) session.get(User.class, new Long(4));
-//			Comment comment=new Comment("Good",new Date(112,5,4,16,40,0));
-//			Comment comment1=new Comment("Good",new Date(112,5,4,16,40,0));
-//			Comment comment2=new Comment("Cool",new Date(112,5,4,16,40,0));
-//			Comment comment3=new Comment("Fancy",new Date(112,5,4,16,40,0));
-//			Comment comment4=new Comment("Oh My God",new Date(112,5,4,16,40,0));
-//			comment.setUser(user1);
-//			comment1.setUser(user1);
-//			comment2.setUser(user2);
-//			comment3.setUser(user3);
-//			comment4.setUser(user3);
-//			session.save(comment);
-//			Comment comment1=(Comment)session.get(Comment.class,new Long(11));
-			Comment  comment1=new Comment("Cool",new Date(112,5,5,16,40,0));
+			User user1=(User) session.get(User.class, new Long(1));
+			User user2=(User) session.get(User.class, new Long(2));
+			User user3=(User) session.get(User.class, new Long(4));
+			Comment comment=new Comment("Good",new Date(112,5,4,16,40,0));
+			Comment comment1=new Comment("Good",new Date(112,5,4,16,40,0));
+			Comment comment2=new Comment("Cool",new Date(112,5,4,16,40,0));
+			Comment comment3=new Comment("Fancy",new Date(112,5,4,16,40,0));
+			Comment comment4=new Comment("Oh My God",new Date(112,5,4,16,40,0));
+			comment.setUser(user1);
+			comment1.setUser(user1);
+			comment2.setUser(user2);
+			comment3.setUser(user3);
+			comment4.setUser(user3);
 			Post post=(Post) session.get(Post.class, new Long(1));
-////			Post post1=(Post) session.get(Post.class, new Long(1));
-////			Post post2=(Post) session.get(Post.class, new Long(1));
-////			Post post3=(Post) session.get(Post.class, new Long(1));
-			List<Comment> comm=new ArrayList<Comment>();
-			comm.add(comment1);
-			//post.addComment(comment1);
-			//post.setComments(comm);
-			post.setContent("Oh,Cool!!!");
+			Post post1=(Post) session.get(Post.class, new Long(3));
+			Post post2=(Post) session.get(Post.class, new Long(6));
+			Post post3=(Post) session.get(Post.class, new Long(7));
+			Post post4=(Post) session.get(Post.class, new Long(5));
+			
+			post3.addComment(comment);
+			post.addComment(comment2);
+			post1.addComment(comment3);
+			post2.addComment(comment4);
+			post4.addComment(comment1);
+			
 			session.saveOrUpdate(post);
+			session.saveOrUpdate(post1);
+			session.saveOrUpdate(post2);
+			session.saveOrUpdate(post3);
+			session.saveOrUpdate(post4);
 //			session.flush();
 			
 		

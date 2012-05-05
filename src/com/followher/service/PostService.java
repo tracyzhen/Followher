@@ -16,6 +16,9 @@ public class PostService {
 	  public Response getPosts(){
 		  System.out.println("Get all posts");
 		  List<Post> posts=PostDao.getPosts();
+		  for(Post p : posts){
+				 p.setComments(null);
+	      }
 		  final GenericEntity<List<Post>> entity=new GenericEntity<List<Post>>(posts){};
 		  return Response.ok().entity(entity).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();
 	  }

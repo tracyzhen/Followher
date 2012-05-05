@@ -93,7 +93,7 @@ public class User implements Serializable{
 		this.sex = sex;
 	}
 	
-	@OneToOne(cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToOne(cascade= CascadeType.ALL)//fetch=FetchType.LAZY)
 	@JoinColumn(name="avatar")
 	public Avatar getAvatar(){
 		return avatar;
@@ -104,7 +104,7 @@ public class User implements Serializable{
 		this.avatar=avatar;
 	}
 	
-	@OneToOne(cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToOne(cascade= CascadeType.ALL)//,fetch=FetchType.LAZY)
 	@JoinColumn(name="profile")
 	public Profile getProfile(){
 		return profile;

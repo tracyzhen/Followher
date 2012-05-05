@@ -43,7 +43,7 @@ public class Comment {
 		this.id = id;
 	}
 
-	@OneToOne(cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+	@OneToOne(cascade= CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="userid")
 	public User getUser() {
 		return user;

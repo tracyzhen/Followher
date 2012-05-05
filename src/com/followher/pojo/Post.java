@@ -102,7 +102,8 @@ public class Post implements Serializable{
 
 	@OneToMany(cascade = CascadeType.ALL)
 //	@Fetch(FetchMode.JOIN)
-    @JoinTable(name = "comment", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id")})
+   // @JoinTable(name = "comment", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id")})
+	@JoinColumn(name="postid")
 	public List<Comment> getComments() {
 		return comments;
 	}
