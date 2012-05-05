@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,16 +27,19 @@ public class PostDao {
 		 try{
 			 tx=session.beginTransaction();
 			 Query query=session.createQuery(
-				" select post from Post as post order by post.createTime DESC "	 
+				" select post from Post as post left join fetch post.imgs left join fetch post.comments order by post.createTime DESC "	 
 			   );
-			 Iterator it=query.iterate();
+			 Iterator it=query.list().iterator();
 			 List<Post> posts=new ArrayList<Post>();
 			 while(it.hasNext()){
 
 	                Post post=(Post)it.next();
+//	                Hibernate.initialize(post.getImgs());
+//	                Hibernate.initialize(post.getComments());
                     posts.add(post);
 	         }
 			 tx.commit();
+			 
 			 return posts;
 			 
 		 }catch(HibernateException e){

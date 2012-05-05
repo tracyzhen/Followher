@@ -18,10 +18,12 @@ public class Server {
 		
 		 
 //		Test.test();
-		   startServer();
+		   //startServer();
         //InsertData.insertItems();
 //		InsertData.insertUsers();
 //		InsertData.insertPosts();
+//		InsertData.insertImgs();
+		InsertData.insertComments();
 	}
 	
 	public static void startServer(){

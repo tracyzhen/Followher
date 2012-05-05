@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import com.followher.launch.HibernateUtil;
 import com.followher.pojo.Avatar;
+import com.followher.pojo.Comment;
 import com.followher.pojo.Item;
 import com.followher.pojo.Post;
 import com.followher.pojo.Img;
@@ -52,6 +53,82 @@ public class InsertData {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void insertImgs(){
+		Session session = HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Img img1=new Img("poster/poster2.jpg","http://www.ebay.com","");
+			Img img2=new Img("poster/poster6.jpg","http://www.ebay.com","");
+			Post post1=new Post("Good,fancy!!!", new Date(112,5,4,16,40,0));
+			post1.setImgs(new ArrayList<Img>());
+			post1.addImg(img1);
+			post1.addImg(img2);
+			//session.save(post1);
+			User user2=(User) session.get(User.class, new Long(1));
+			if(user2!=null){
+				
+				
+				
+				user2.addPost(post1);
+				
+			}
+			tx.commit();
+			System.out.println("Success!!");
+		} catch (HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	public static void insertComments(){
+		Session session=HibernateUtil.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+//			User user1=(User) session.get(User.class, new Long(1));
+//			User user2=(User) session.get(User.class, new Long(2));
+//			User user3=(User) session.get(User.class, new Long(4));
+//			Comment comment=new Comment("Good",new Date(112,5,4,16,40,0));
+//			Comment comment1=new Comment("Good",new Date(112,5,4,16,40,0));
+//			Comment comment2=new Comment("Cool",new Date(112,5,4,16,40,0));
+//			Comment comment3=new Comment("Fancy",new Date(112,5,4,16,40,0));
+//			Comment comment4=new Comment("Oh My God",new Date(112,5,4,16,40,0));
+//			comment.setUser(user1);
+//			comment1.setUser(user1);
+//			comment2.setUser(user2);
+//			comment3.setUser(user3);
+//			comment4.setUser(user3);
+//			session.save(comment);
+//			Comment comment1=(Comment)session.get(Comment.class,new Long(11));
+			Comment  comment1=new Comment("Cool",new Date(112,5,5,16,40,0));
+			Post post=(Post) session.get(Post.class, new Long(1));
+////			Post post1=(Post) session.get(Post.class, new Long(1));
+////			Post post2=(Post) session.get(Post.class, new Long(1));
+////			Post post3=(Post) session.get(Post.class, new Long(1));
+			List<Comment> comm=new ArrayList<Comment>();
+			comm.add(comment1);
+			//post.addComment(comment1);
+			//post.setComments(comm);
+			post.setContent("Oh,Cool!!!");
+			session.saveOrUpdate(post);
+//			session.flush();
+			
+		
+			tx.commit();
+			System.out.println("Success!!");
+		} catch (HibernateException e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
 	}
 	
 	public static void insertPosts(){

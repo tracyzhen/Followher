@@ -19,6 +19,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.JoinColumn;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.IndexColumn;
 
 @XmlRootElement(name = "Post")
@@ -84,8 +86,7 @@ public class Post implements Serializable{
 		this.createTime = createTime;
 	}
 	
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-	@IndexColumn(name="id")
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "imgpost", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "imgid") })
 	public List<Img> getImgs() {
 		return this.imgs;
@@ -99,15 +100,19 @@ public class Post implements Serializable{
 		this.imgs.add(img);
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@IndexColumn(name="id")
-    @JoinTable(name = "comment", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id") })
+	@OneToMany(cascade = CascadeType.ALL)
+//	@Fetch(FetchMode.JOIN)
+    @JoinTable(name = "comment", joinColumns = { @JoinColumn(name = "postid") }, inverseJoinColumns = { @JoinColumn(name = "id")})
 	public List<Comment> getComments() {
 		return comments;
 	}
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public void addComment(Comment comment){
+		this.comments.add(comment);
 	}
 
 //	@ManyToOne(cascade = CascadeType.ALL)

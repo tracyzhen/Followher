@@ -14,6 +14,15 @@ public class Comment {
 	private User user; // 发评论的人
 	private String conetent;
 	private Date createtime;
+	
+	public Comment(){
+		
+	}
+	
+	public Comment(String content, Date createtime){
+		this.conetent=content;
+		this.createtime=createtime;
+	}
 
 	@Id
 	@Column(name="id")
@@ -34,7 +43,7 @@ public class Comment {
 		this.id = id;
 	}
 
-	@OneToOne(cascade= CascadeType.ALL)
+	@OneToOne(cascade= CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="userid")
 	public User getUser() {
 		return user;

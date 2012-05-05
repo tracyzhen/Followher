@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 05 月 04 日 13:57
+-- 生成日期: 2012 年 05 月 05 日 14:18
 -- 服务器版本: 5.2.3
 -- PHP 版本: 5.3.6
 
@@ -49,14 +49,21 @@ INSERT INTO `avatar` (`id`, `filelocation`) VALUES
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `postid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
+  `postid` int(11) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL,
   `content` varchar(2000) DEFAULT NULL,
   `createtime` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `postid` (`postid`),
   KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+
+--
+-- 转存表中的数据 `comment`
+--
+
+INSERT INTO `comment` (`id`, `postid`, `userid`, `content`, `createtime`) VALUES
+(11, NULL, 1, 'Good', '2012-06-04');
 
 -- --------------------------------------------------------
 
@@ -94,9 +101,9 @@ INSERT INTO `generator_table` (`ID`, `G_KEY`, `G_VALUE`) VALUES
 (1, 'AVATAR_PK', 4),
 (2, 'USER_PK', 4),
 (3, 'PROFILE_PK', 4),
-(4, 'POST_PK', 8),
-(5, 'COMMENT_PK', 1),
-(6, 'IMG_PK', 8),
+(4, 'POST_PK', 10),
+(5, 'COMMENT_PK', 15),
+(6, 'IMG_PK', 12),
 (11, 'TYPE_PK', 8),
 (12, 'ITEM_PK', 27);
 
@@ -112,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `img` (
   `ebaylink` varchar(1000) DEFAULT NULL,
   `css` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `img`
@@ -125,7 +132,11 @@ INSERT INTO `img` (`id`, `url`, `ebaylink`, `css`) VALUES
 (4, 'poster/poster2.jpg', 'http://www.ebay.com', ''),
 (5, 'poster/poster6.jpg', 'http://www.ebay.com', ''),
 (6, 'poster/poster5.jpg', 'http://www.ebay.com', ''),
-(7, 'poster/poster7.jpg', 'http://www.ebay.com', '');
+(7, 'poster/poster7.jpg', 'http://www.ebay.com', ''),
+(8, 'poster/poster5.jpg', 'http://www.ebay.com', ''),
+(9, 'poster/poster4.jpg', 'http://www.ebay.com', ''),
+(10, 'poster/poster2.jpg', 'http://www.ebay.com', ''),
+(11, 'poster/poster6.jpg', 'http://www.ebay.com', '');
 
 -- --------------------------------------------------------
 
@@ -140,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `imgpost` (
   PRIMARY KEY (`id`),
   KEY `postid` (`postid`),
   KEY `imgid` (`imgid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `imgpost`
@@ -153,7 +164,11 @@ INSERT INTO `imgpost` (`id`, `postid`, `imgid`) VALUES
 (4, 4, 4),
 (5, 5, 5),
 (6, 6, 6),
-(7, 7, 7);
+(7, 7, 7),
+(8, 8, 8),
+(9, 8, 9),
+(10, 9, 10),
+(11, 9, 11);
 
 -- --------------------------------------------------------
 
@@ -228,20 +243,22 @@ CREATE TABLE IF NOT EXISTS `post` (
   `content` varchar(2000) DEFAULT NULL,
   `createtime` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `post`
 --
 
 INSERT INTO `post` (`id`, `content`, `createtime`) VALUES
-(1, 'Good,Cool', '2012-06-04'),
+(1, 'Oh,Cool!!!', '2012-06-04'),
 (2, 'U deserve it!', '2012-06-03'),
 (3, 'Good,Cool!', '2012-06-10'),
 (4, 'Cool,beautiful, fancy !', '2012-06-03'),
 (5, 'Fancy,Cool', '2012-07-04'),
 (6, 'Good,Cool!!!!', '2012-05-04'),
-(7, 'Good,Cool!!!', '2012-06-01');
+(7, 'Good,Cool!!!', '2012-06-01'),
+(8, 'Good,Cool!!!', '2012-06-04'),
+(9, 'Good,fancy!!!', '2012-06-04');
 
 -- --------------------------------------------------------
 
@@ -343,31 +360,26 @@ CREATE TABLE IF NOT EXISTS `userpost` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `postid` (`postid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `userpost`
 --
 
 INSERT INTO `userpost` (`id`, `userid`, `postid`) VALUES
-(2, 1, 1),
-(3, 1, 2),
-(4, 1, 3),
-(5, 2, 4),
-(6, 2, 5),
 (7, 3, 6),
-(8, 3, 7);
+(8, 3, 7),
+(9, 2, 4),
+(10, 2, 5),
+(11, 2, 8),
+(12, 1, 1),
+(13, 1, 2),
+(14, 1, 3),
+(15, 1, 9);
 
 --
 -- 限制导出的表
 --
-
---
--- 限制表 `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `fave`
@@ -407,8 +419,8 @@ ALTER TABLE `subscribe`
 -- 限制表 `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`avatar`) REFERENCES `avatar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`profile`) REFERENCES `profile` (`id`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `userpost`
