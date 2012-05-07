@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import com.followher.launch.HibernateUtil;
 import com.followher.pojo.Post;
+import com.followher.pojo.User;
 
 public class PostDao {
 
@@ -50,5 +51,36 @@ public class PostDao {
 			 session.close();
 		 }
 		 
+	}
+	
+	public static List<Post> getPostsByUserId(long id){
+		Session session=HibernateUtil.getSession();
+		Transaction tx=null;
+		try{
+			tx=session.beginTransaction();
+			Query query=session.createQuery(
+			    "select user from User as user where user.id=? " 
+			).setLong(0,id);
+			 Iterator it=query.iterate();
+			 List<Post> posts=new ArrayList<Post>();
+			 while(it.hasNext()){
+                    
+	                User user=(User) it.next();
+//	                Hibernate.initialize(user.getPosts());
+	                for(Post p : posts){
+	                	Hibernate.initialize(p.getImgs());
+	                	posts.add(p);
+	   	            }
+	         }
+			 tx.commit();
+			 return posts;
+			
+			
+		}catch(HibernateException e){
+			tx.rollback();
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 }

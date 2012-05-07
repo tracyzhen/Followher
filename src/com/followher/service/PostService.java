@@ -22,4 +22,19 @@ public class PostService {
 		  final GenericEntity<List<Post>> entity=new GenericEntity<List<Post>>(posts){};
 		  return Response.ok().entity(entity).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();
 	  }
+	  
+	  @GET
+	  @Path("/id")
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public Response getPostsByUserId(@PathParam("id")long id){
+		  System.out.println("Get posts by userid:"+id);
+		  List<Post> posts=PostDao.getPostsByUserId(id);
+		  for(Post p : posts){
+		      p.setComments(null);
+	      }
+		  final GenericEntity<List<Post>> entity=new GenericEntity<List<Post>>(posts){};
+		  return Response.ok().entity(entity).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();
+	  }
+	  
+	  
 }

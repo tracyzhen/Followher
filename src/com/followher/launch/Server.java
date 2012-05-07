@@ -3,6 +3,7 @@ package com.followher.launch;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 
 
+import com.followher.dao.PostDao;
 import com.followher.hibernateTest.InsertData;
 import com.followher.hibernateTest.Test;
 import com.followher.pojo.Avatar;
@@ -18,12 +19,13 @@ public class Server {
 		
 		 
 //		Test.test();
-		   startServer();
+//		   startServer();
         //InsertData.insertItems();
 //		InsertData.insertUsers();
 //		InsertData.insertPosts();
 //		InsertData.insertImgs();
 //		InsertData.insertComments();
+		PostDao.getPostsByUserId(new Long(1));
 	}
 	
 	public static void startServer(){
