@@ -20,7 +20,7 @@ public class UserService {
 	@Path("/{id}")
 	//@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUser(@PathParam("id")String id){
+	public Response getUser(@PathParam("id")long id){
 		System.out.println("get user by id= "+ id);
 		User user=UserDAO.getUser(id);
 		return Response.ok(user).header("Access-Control-Allow-Origin","*").header("Access-Control-Allow-Methods", "POST, GET").build();

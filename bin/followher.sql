@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1
+-- version 3.5.0
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 05 月 05 日 14:18
--- 服务器版本: 5.2.3
--- PHP 版本: 5.3.6
+-- 生成日期: 2012 年 05 月 05 日 20:24
+-- 服务器版本: 5.5.23
+-- PHP 版本: 5.4.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filelocation` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `avatar`
@@ -56,14 +56,18 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `postid` (`postid`),
   KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- 转存表中的数据 `comment`
 --
 
 INSERT INTO `comment` (`id`, `postid`, `userid`, `content`, `createtime`) VALUES
-(11, NULL, 1, 'Good', '2012-06-04');
+(1, 1, 2, 'Cool', '2012-06-04'),
+(2, 3, 2, 'Fancy', '2012-06-04'),
+(3, 6, 1, 'Oh My God', '2012-06-04'),
+(4, 7, 1, 'Good', '2012-06-04'),
+(5, 5, 1, 'Good', '2012-06-04');
 
 -- --------------------------------------------------------
 
@@ -91,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `generator_table` (
   `G_KEY` varchar(50) DEFAULT NULL,
   `G_VALUE` int(20) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- 转存表中的数据 `generator_table`
@@ -102,7 +106,7 @@ INSERT INTO `generator_table` (`ID`, `G_KEY`, `G_VALUE`) VALUES
 (2, 'USER_PK', 4),
 (3, 'PROFILE_PK', 4),
 (4, 'POST_PK', 10),
-(5, 'COMMENT_PK', 15),
+(5, 'COMMENT_PK', 6),
 (6, 'IMG_PK', 12),
 (11, 'TYPE_PK', 8),
 (12, 'ITEM_PK', 27);
@@ -119,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `img` (
   `ebaylink` varchar(1000) DEFAULT NULL,
   `css` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `img`
@@ -151,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `imgpost` (
   PRIMARY KEY (`id`),
   KEY `postid` (`postid`),
   KEY `imgid` (`imgid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `imgpost`
@@ -183,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `ebaylink` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- 转存表中的数据 `items`
@@ -243,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `content` varchar(2000) DEFAULT NULL,
   `createtime` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `post`
@@ -270,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `profile`
@@ -306,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `type`
@@ -336,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `avatar` (`avatar`),
   KEY `profile` (`profile`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `user`
@@ -360,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `userpost` (
   PRIMARY KEY (`id`),
   KEY `userid` (`userid`),
   KEY `postid` (`postid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `userpost`

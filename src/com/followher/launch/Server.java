@@ -9,6 +9,7 @@ import com.followher.hibernateTest.Test;
 import com.followher.pojo.Avatar;
 import com.followher.pojo.Profile;
 import com.followher.pojo.User;
+import com.followher.service.CommentService;
 import com.followher.service.ItemService;
 import com.followher.service.PostService;
 import com.followher.service.UserService;
@@ -19,23 +20,24 @@ public class Server {
 		
 		 
 //		Test.test();
-//		   startServer();
+		   startServer();
         //InsertData.insertItems();
 //		InsertData.insertUsers();
 //		InsertData.insertPosts();
 //		InsertData.insertImgs();
 //		InsertData.insertComments();
-		PostDao.getPostsByUserId(new Long(1));
+//		PostDao.getPostsByUserId(new Long(1));
 	}
 	
 	public static void startServer(){
 		  UserService userService =new UserService();
 		  ItemService itemService=new ItemService();
 		  PostService postService=new PostService();
+		  CommentService commentService =new CommentService();
 		  
 		  JAXRSServerFactoryBean restServer =new JAXRSServerFactoryBean();
 		  restServer.setResourceClasses(User.class, Avatar.class,Profile.class );
-		  restServer.setServiceBeanObjects(userService,itemService,postService);
+		  restServer.setServiceBeanObjects(userService,itemService,postService,commentService);
 		  restServer.setAddress("http://127.0.0.1:9999/");
 		  restServer.create();
 		  

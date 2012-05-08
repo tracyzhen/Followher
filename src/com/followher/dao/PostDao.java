@@ -80,7 +80,9 @@ public class PostDao {
 			tx.rollback();
 			e.printStackTrace();
 			return null;
-		}
+		}finally{
+			 session.close();
+		 }
 		
 	}
 }

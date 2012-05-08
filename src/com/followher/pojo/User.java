@@ -43,6 +43,12 @@ public class User implements Serializable{
 	}
 
 	
+	public User(long id, String name ,Avatar avatar){
+		
+		this.id=id;
+		this.name=name;
+		this.avatar=avatar;
+	}
 
 	public User( String name, String sex, Avatar avatar,
 			Profile profile) {
