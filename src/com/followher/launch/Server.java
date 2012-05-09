@@ -11,6 +11,7 @@ import com.followher.pojo.Profile;
 import com.followher.pojo.User;
 import com.followher.service.CommentService;
 import com.followher.service.ItemService;
+import com.followher.service.MyMarshaller;
 import com.followher.service.PostService;
 import com.followher.service.UserService;
 
@@ -34,12 +35,15 @@ public class Server {
 		  ItemService itemService=new ItemService();
 		  PostService postService=new PostService();
 		  CommentService commentService =new CommentService();
+		 // MyMarshaller marshaller=new MyMarshaller();
 		  
 		  JAXRSServerFactoryBean restServer =new JAXRSServerFactoryBean();
 		  restServer.setResourceClasses(User.class, Avatar.class,Profile.class );
 		  restServer.setServiceBeanObjects(userService,itemService,postService,commentService);
+		 // restServer.setProvider(marshaller);
 		  restServer.setAddress("http://127.0.0.1:9999/");
 		  restServer.create();
+		  
 		  
 		   
 	} 

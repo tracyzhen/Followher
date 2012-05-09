@@ -42,4 +42,30 @@ public class UserDAO {
 		}
 		
 	}
+	
+	public static User getPostUser(long id){
+		
+		  Session session=HibernateUtil.getSession();
+		  try{
+			  Query query=session.createSQLQuery(
+				" select userid from userpost where postid = ?"	  
+			  ).setLong(0, id);
+			  Iterator it=query.list().iterator();
+			  if(it.hasNext()){
+				 long userid= ((Integer)it.next()).longValue();
+				 User user=getUser(userid);
+				 return user;
+			  }
+			  return null;
+			  
+			  
+		  }catch(HibernateException e){
+			  
+			  e.printStackTrace();
+			  return null;
+			  
+		  }finally{
+			  session.close();
+		  }
+	}
 }
