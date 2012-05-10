@@ -1,6 +1,7 @@
 package com.followher.launch;
 
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
+import org.hibernate.Session;
 
 
 import com.followher.dao.PostDao;
@@ -43,6 +44,8 @@ public class Server {
 		 // restServer.setProvider(marshaller);
 		  restServer.setAddress("http://127.0.0.1:9999/");
 		  restServer.create();
+		  Session session=HibernateUtil.getSession();
+		  session.close();
 		  
 		  
 		   

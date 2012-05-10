@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.followher.launch.HibernateUtil;
+import com.followher.pojo.Img;
 import com.followher.pojo.Post;
 import com.followher.pojo.User;
 
@@ -84,5 +85,38 @@ public class PostDao {
 			 session.close();
 		 }
 		
+	}
+	
+	
+	public static boolean NewPost(long userid, Post post){
+		
+		 Session session=HibernateUtil.getSession();
+		 Transaction tx=null;
+		 try{
+			 tx=session.beginTransaction();
+			 Post newpost = new Post();
+			 newpost.setImgs(new ArrayList<Img>());
+			 for(Img i : post.getImgs()){
+				 newpost.addImg(i);
+			 }
+			 
+			 newpost.setContent(post.getContent());
+			 newpost.setCreateTime(post.getCreateTime());
+			 User user=(User) session.get(User.class, userid);
+			 if(user!=null){
+				 user.addPost(newpost);
+			 }
+			 session.flush();
+			 tx.commit();
+			 return true;
+			 
+			 
+		 }catch(HibernateException e){
+			 tx.rollback();
+			 e.printStackTrace();
+			 return false;
+		 }finally{
+			 session.close();
+		 }
 	}
 }
